@@ -116,87 +116,88 @@ export function RoboticsProgressAndTeamComponent() {
   };
 
   const sections: Section[] = [
-    {
-      title: 'Our Progress',
-      icon: <Cpu className="w-6 h-6" />,
-      content: 'We recently completed making the robot movement. This is a significant milestone in our project!',
-    },
-    {
-      title: 'Current Issues',
-      icon: <Wrench className="w-6 h-6" />,
-      content: [
-        {
-          id: 'battery',
-          issue: 'Battery falling out of place',
-          solution: 'Design and 3D print a custom battery holder that securely fits in the robot chassis.',
-          details: 'The battery falling out is a critical issue that needs immediate attention. Here are some options to fix it:',
-          options: [
-            '3D print a custom battery holder',
-            'Use industrial-strength velcro straps',
-            'Install a metal bracket system',
-          ],
-        },
-        {
-          id: 'wheels',
-          issue: 'Wheels movement is not perfect',
-          solution: 'Calibrate the motor controllers and adjust the PID values for smoother motion.',
-          details: 'Imperfect wheel movement can affect the robot&apos;s performance. Here&apos;s what we can do:',
-          options: [
-            'Fine-tune PID controller parameters',
-            'Check for mechanical issues in the drivetrain',
-            'Upgrade to more precise motor encoders',
-          ],
-        },
-        {
-          id: 'webcam',
-          issue: 'Webcam needed for automation purposes',
-          solution: 'Research compatible webcams, integrate with ROS (Robot Operating System) for image processing.',
-          details: 'Implementing a webcam is crucial for autonomous operations. Here&apos;s our plan:',
-          options: [
-            'Select a high-resolution, wide-angle webcam',
-            'Implement OpenCV for image processing',
-            'Integrate webcam data with the robot&apos;s decision-making system',
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Next Steps',
-      icon: <Cog className="w-6 h-6" />,
-      content: [
-        {
-          id: 'qr-scanning',
-          step: 'Work with webcam for QR scanning',
-          details: 'Implement OpenCV for QR code detection and integrate with robot control system.',
-          options: [
-            'Set up OpenCV environment',
-            'Develop QR code detection algorithm',
-            'Test QR code scanning in various lighting conditions',
-          ],
-        },
-        {
-          id: 'servo-code',
-          step: 'Prepare servo control code',
-          details: 'Develop modular code for servo control that can be easily integrated when the claw is built.',
-          options: [
-            'Design a flexible servo control interface',
-            'Implement position and speed control for servos',
-            'Create a simulation environment for testing',
-          ],
-        },
-        {
-          id: 'assign-roles',
-          step: 'Assign roles for bot operation',
-          details: 'Identify team members&apos; strengths and assign roles like driver, operator, and technician.',
-          options: [
-            'Conduct skill assessment for team members',
-            'Define clear responsibilities for each role',
-            'Organize training sessions for each role',
-          ],
-        },
-      ],
-    },
-  ];
+  {
+    title: 'Our Progress',
+    icon: <Cpu className="w-6 h-6" />,
+    content: 'We recently completed making the robot movement. This is a significant milestone in our project!',
+  },
+  {
+    title: 'Current Issues',
+    icon: <Wrench className="w-6 h-6" />,
+    content: [
+      {
+        id: 'battery',
+        issue: 'Battery falling out of place',
+        solution: 'Implement a secure battery mounting solution using REV Robotics components.',
+        details: 'The battery falling out is a critical issue that needs immediate attention. Here are detailed steps to fix it:',
+        options: [
+          'Utilize the REV Robotics Battery Holder Plate, designed to support a REV 12V Battery securely. :contentReference[oaicite:0]{index=0}',
+          'Employ industrial-strength hook and loop fasteners to hold the battery firmly in place. :contentReference[oaicite:1]{index=1}',
+          'Design and 3D print a custom battery holder tailored to your robot’s chassis, ensuring a snug fit. :contentReference[oaicite:2]{index=2}',
+        ],
+      },
+      {
+        id: 'wheels',
+        issue: 'Wheels movement is not perfect',
+        solution: 'Calibrate motor controllers and adjust PID values using appropriate tools.',
+        details: 'Imperfect wheel movement can affect the robot’s performance. Here’s what we can do for fine-tuning:',
+        options: [
+          'Use the FTC Dashboard tool to visualize and adjust PID controller parameters in real-time for smoother motion.',
+          'Inspect the drivetrain for any loose connections, worn gears, or misalignments that may impact wheel performance.',
+          'Upgrade to motor encoders with higher resolution to ensure more precise movement tracking and feedback.',
+        ],
+      },
+      {
+        id: 'webcam',
+        issue: 'Webcam needed for automation purposes',
+        solution: 'Integrate a compatible webcam with OpenCV for image processing.',
+        details: 'Implementing a webcam is crucial for autonomous operations. Detailed steps include:',
+        options: [
+          'Select a high-resolution, wide-angle USB webcam compatible with the robot’s control system.',
+          'Set up OpenCV in the programming environment and test basic image processing scripts to ensure compatibility.',
+          'Integrate webcam data into the robot’s decision-making system, considering lighting conditions and testing with various QR codes for consistent performance.',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Next Steps',
+    icon: <Cog className="w-6 h-6" />,
+    content: [
+      {
+        id: 'qr-scanning',
+        step: 'Work with webcam for QR scanning',
+        details: 'Implement OpenCV for QR code detection and integrate with the robot control system. Follow these detailed steps:',
+        options: [
+          'Install OpenCV and any necessary libraries (e.g., `pip install opencv-python`).',
+          'Develop a Python script that uses `cv2` for QR code detection and test it with static images.',
+          'Integrate the OpenCV code into the robot’s control system and test QR scanning under different lighting conditions to ensure reliability.',
+        ],
+      },
+      {
+        id: 'servo-code',
+        step: 'Prepare servo control code',
+        details: 'Develop modular code for servo control, ensuring it’s ready for the integration phase. Key steps:',
+        options: [
+          'Design a flexible interface for controlling servo positions, allowing for easy adjustments.',
+          'Implement basic position and speed control functions using libraries like FTC SDK’s Servo class.',
+          'Create a simulation environment or use test servos to validate the movement accuracy and response times.',
+        ],
+      },
+      {
+        id: 'assign-roles',
+        step: 'Assign roles for bot operation',
+        details: 'Identify team members’ strengths and assign roles for efficient robot operation during competitions.',
+        options: [
+          'Conduct a skill assessment to understand team members’ experience and strengths.',
+          'Define clear responsibilities for each role (e.g., driver, operator, technician) to streamline operations.',
+          'Plan and organize training sessions tailored to each role, ensuring everyone is confident and prepared.',
+        ],
+      },
+    ],
+  },
+];
+
 
   return (
     <>
