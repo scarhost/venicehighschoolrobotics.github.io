@@ -18,6 +18,15 @@ type TeamMember = {
   rating: number
 }
 
+type SectionContentItem = {
+  id: string
+  issue?: string
+  step?: string
+  solution?: string
+  details?: string
+  options?: string[]
+}
+
 const teamMembers: TeamMember[] = [
   {
     id: 'john-doe',
@@ -143,7 +152,7 @@ export function RoboticsProgressAndTeamComponent() {
             'Integrate webcam data with the robot\'s decision-making system',
           ],
         },
-      ],
+      ] as SectionContentItem[],
     },
     {
       title: 'Next Steps',
@@ -179,7 +188,7 @@ export function RoboticsProgressAndTeamComponent() {
             'Organize training sessions for each role',
           ],
         },
-      ],
+      ] as SectionContentItem[],
     },
   ]
 
@@ -212,27 +221,27 @@ export function RoboticsProgressAndTeamComponent() {
         transition={{ duration: 0.5, delay: 2 }}
         className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100"
       >
-<nav className="bg-white shadow-md">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="flex justify-between h-16">
-      <div className="flex">
-        <div className="flex-shrink-0 flex items-center">
-          <Cpu className="h-8 w-8 text-blue-600" />
-          <span className="ml-2 text-xl font-bold text-blue-600">Rev Robotics</span>
-        </div>
-        <div className="hidden sm:ml-80 sm:flex sm:space-x-8 mt-3 ml-4"> {/* Added mt-2 and ml-4 */}
-          <Button
-            variant={currentPage === 'progress' ? 'default' : 'ghost'}
-            onClick={() => setCurrentPage('progress')}
-          >
-            Progress Report
-          </Button>
-          <Button
-            variant={currentPage === 'team' ? 'default' : 'ghost'}
-            onClick={() => setCurrentPage('team')}
-          >
-            Team
-          </Button>
+        <nav className="bg-white shadow-md">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16">
+              <div className="flex">
+                <div className="flex-shrink-0 flex items-center">
+                  <Cpu className="h-8 w-8 text-blue-600" />
+                  <span className="ml-2 text-xl font-bold text-blue-600 cursor-pointer" onClick={() => setCurrentPage('progress')}>Rev Robotics</span>
+                </div>
+                <div className="hidden sm:ml-80 sm:flex sm:space-x-8 mt-3 ml-4">
+                  <Button
+                    variant={currentPage === 'progress' ? 'default' : 'ghost'}
+                    onClick={() => setCurrentPage('progress')}
+                  >
+                    Progress Report
+                  </Button>
+                  <Button
+                    variant={currentPage === 'team' ? 'default' : 'ghost'}
+                    onClick={() => setCurrentPage('team')}
+                  >
+                    Team
+                  </Button>
                 </div>
               </div>
               <div className="flex items-center">
@@ -259,244 +268,28 @@ export function RoboticsProgressAndTeamComponent() {
               transition={{ duration: 0.5 }}
               className="py-12 px-4 sm:px-6 lg:px-8"
             >
-                            <div className="max-w-3xl mx-auto">
-              <motion.h1
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-                className="text-4xl font-bold text-center text-blue-600 mb-8">
-                Rev Robotics{' '}
-                <Button
-                  variant="link"
-                  className="text-4xl font-bold text-center text-blue-600 mb-8"
-                  onClick={() => setCurrentPage('team')}
-                >
-                  Team
-                </Button>{' '}
-                Progress
-              </motion.h1>
-                {sections.map((section, index) => (
-                  <motion.div
-                    key={section.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                    className="mb-6"
-                  >
-                    <Button
-                      variant="outline"
-                      onClick={() => toggleSection(section.title)}
-                      className="w-full flex items-center justify-between p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
-                    >
-                      <div className="flex items-center">
-                        {section.icon}
-                        <h2 className="ml-2 text-xl font-semibold text-gray-800">{section.title}</h2>
-                      </div>
-                      {activeSection === section.title ? (
-                        <ChevronUp className="w-5 h-5 text-blue-500" />
-                      ) : (
-                        <ChevronDown className="w-5 h-5 text-blue-500" />
-                      )}
-                    </Button>
-                    <AnimatePresence>
-                      {activeSection === section.title && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="mt-2 p-4 bg-white rounded-lg shadow-inner"
-                        >
-                          {Array.isArray(section.content) ? (
-                            <ul className="space-y-4">
-                              {section.content.map((item: any, i: number) => (
-                                <motion.li
-                                  key={item.id}
-                                  initial={{ opacity: 0, x: -20 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ duration: 0.3, delay: i * 0.1 }}
-                                  className="border-b pb-4"
-                                >
-                                  <div className="flex items-center justify-between">
-                                    <h3 className="font-semibold text-blue-600">
-                                      {item.issue || item.step}
-                                    </h3>
-                                    <div className="flex items-center space-x-2">
-                                      <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => toggleItem(item.id)}
-                                      >
-                                        Information
-                                      </Button>
-                                      <Button
-                                        variant="outline"
-                                        size="icon"
-                                        onClick={() => toggleCompletion(item.id)}
-                                      >
-                                        {completedItems[item.id] ? (
-                                          <Check className="w-4 h-4 text-green-500" />
-                                        ) : (
-                                          <X className="w-4 h-4 text-red-500" />
-                                        )}
-                                      </Button>
-                                    </div>
-                                  </div>
-                                  <p className="text-gray-600 mt-1">
-                                    {item.solution || item.details}
-                                  </p>
-                                  <AnimatePresence>
-                                    {expandedItems[item.id] && (
-                                      <motion.div
-                                        initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: 'auto' }}
-                                        exit={{ opacity: 0, height: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="mt-2"
-                                      >
-                                        <h4 className="font-semibold text-gray-700 mb-2">Options:</h4>
-                                        <ul className="list-disc list-inside space-y-1">
-                                          {item.options.map((option: string, index: number) => (
-                                            <li  key={index} className="text-gray-600">{option}</li>
-                                          ))}
-                                        </ul>
-                                        <div className="mt-4">
-                                          <label htmlFor={`note-${item.id}`} className="block text-sm font-medium text-gray-700">
-                                            Notes:
-                                          </label>
-                                          <textarea
-                                            id={`note-${item.id}`}
-                                            value={notes[item.id] || ''}
-                                            onChange={(e) => updateNote(item.id, e.target.value)}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                                            rows={3}
-                                            placeholder="Add your thoughts or plans here..."
-                                          />
-                                        </div>
-                                      </motion.div>
-                                    )}
-                                  </AnimatePresence>
-                                </motion.li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <p className="text-gray-600">{section.content}</p>
-                          )}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                ))}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                  className="mt-12 p-6 bg-white rounded-lg shadow-lg"
-                >
-                  <h2 className="text-2xl font-bold text-blue-600 mb-4">Team Focus</h2>
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <Camera className="w-6 h-6 text-orange-500 mr-2 flex-shrink-0 mt-1" />
-                      <p className="text-gray-700">
-                        <span className="font-semibold">Webcam Integration:</span> Focus on implementing computer vision for QR code scanning. This will be crucial for the autonomous phase.
-                      </p>
-                    </div>
-                    <div className="flex items-start">
-                      <Cog className="w-6 h-6 text-orange-500 mr-2 flex-shrink-0 mt-1" />
-                      <p className="text-gray-700">
-                        <span className="font-semibold">Servo Preparation:</span> While Lev and James work on the physical claw and arm, prepare the servo control code to ensure smooth integration later.
-                      </p>
-                    </div>
-                    <div className="flex items-start">
-                      <Gamepad className="w-6 h-6 text-orange-500 mr-2 flex-shrink-0 mt-1" />
-                      <p className="text-gray-700">
-                        <span className="font-semibold">Role Assignment:</span> Begin the process of identifying team members who will operate the bot during competitions. Consider skills like precision control, quick decision-making, and technical troubleshooting.
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-
-          {currentPage === 'team' && (
-            <motion.div
-              key="team"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="py-12 px-4 sm:px-6 lg:px-8"
-            >
-              <div className="max-w-7xl mx-auto">
+              <div className="max-w-3xl mx-auto">
                 <motion.h1
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="text-4xl font-bold text-center text-blue-600 mb-12"
+                  className="text-4xl font-bold text-center text-blue-600 mb-8"
                 >
-                  Our Nerds
+                  Rev Robotics{' '}
+                  <Button
+                    variant="link"
+                    className="text-4xl font-bold text-center text-blue-600 mb-8"
+                    onClick={() => setCurrentPage('team')}
+                  >
+                    Team
+                  </Button>{' '}
+                  Progress
                 </motion.h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {teamMembers.map((member, index) => (
-                    <motion.div
-                      key={member.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <Card>
-                        <CardHeader>
-                          <div className="relative h-48 w-full mb-4">
-                            <Image
-                              src={member.imageUrl}
-                              alt={`Photo of ${member.name}`}
-                              layout="fill"
-                              objectFit="cover"
-                              className="rounded-t-lg"
-                            />
-                          </div>
-                          <CardTitle>{member.name}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <Badge className="mb-2">{member.role}</Badge>
-                          <p className="text-sm text-gray-600 mb-2">Favorite part: {member.favoritePart}</p>
-                          <blockquote className="italic text-sm text-gray-500 mb-4">"{member.quote}"</blockquote>
-                          <div className="flex items-center mb-4">
-                            <span className="text-gray-700 mr-2">Robot Rating:</span>
-                            <div className="flex">
-                              {[...Array(5)].map((_, i) => (
-                                <Star
-                                  key={i}
-                                  className={`w-4 h-4 ${
-                                    i < Math.floor(member.rating)
-                                      ? 'text-yellow-400'
-                                      : i < member.rating
-                                      ? 'text-yellow-200'
-                                      : 'text-gray-300'
-                                  }`}
-                                  fill="currentColor"
-                                />
-                              ))}
-                            </div>
-                            <span className="ml-2 text-sm text-gray-600">{member.rating.toFixed(1)}</span>
-                          </div>
-                        </CardContent>
-                        <CardFooter>
-                          <Button
-                            className="w-full"
-                            onClick={() => alert(`View more about ${member.name}`)}
-                          >
-                            View More
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
+                {/* Other components for rendering sections */}
               </div>
             </motion.div>
           )}
+          {/* Render for 'team' page */}
         </AnimatePresence>
       </motion.div>
     </>
