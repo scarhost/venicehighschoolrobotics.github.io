@@ -34,7 +34,7 @@ const teamMembers: TeamMember[] = [
     role: 'Software Developer',
     imageUrl: '/placeholder.jpg?height=200&width=200',
     favoritePart: 'The autonomous navigation algorithm',
-    quote: "Code is like humor. When you have to explain it, i'ts bad.",
+    quote: 'Code is like humor. When you have to explain it, it&apos;s bad.',
     rating: 4.8
   },
   {
